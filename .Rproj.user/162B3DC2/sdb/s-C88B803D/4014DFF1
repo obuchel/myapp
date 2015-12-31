@@ -1,0 +1,18 @@
+{
+    "contents" : "function(tomato){\n  #require(leafletR)\n  #devtools::install_github(\"rstudio/leaflet\")\n  require(leaflet)\n  ## Loading required package: leaflet\n  require(data.table)\n  ## Loading required package: data.table\n  require(dplyr)\n  ## Loading required package: dplyr\n  ## \n  ## Attaching package: 'dplyr'\n  ## \n  ## The following objects are masked from 'package:data.table':\n  ## \n  ##     between, last\n  ## \n  ## The following object is masked from 'package:stats':\n  ## \n  ##     filter\n  ## \n  ## The following objects are masked from 'package:base':\n  ## \n  ##     intersect, setdiff, setequal, union\n  library(sp)\n  library(rgdal)\n  ## rgdal: version: 0.9-1, (SVN revision 518)\n  ## Geospatial Data Abstraction Library extensions to R successfully loaded\n  ## Loaded GDAL runtime: GDAL 1.7.3, released 2010/11/10\n  ## Path to GDAL shared files: /usr/share/gdal/1.7\n  ## GDAL does not use iconv for recoding strings.\n  ## Loaded PROJ.4 runtime: Rel. 4.7.1, 23 September 2009, [PJ_VERSION: 470]\n  ## Path to PROJ.4 shared files: (autodetected)\n  library(maptools)\n  ## Checking rgeos availability: TRUE\n  library(KernSmooth)\n  ## KernSmooth 2.23 loaded\n  ## Copyright M. P. Wand 1997-2009\n  \n  ##theUrl <- \"http://abuchel.physics.uwo.ca/~obuchel/angular/john_snow_map/deaths.csv\"\n  \n  ##theUrl <- \"http://abuchel.physics.uwo.ca/~obuchel/ivey_research/2008_2014_new_1.csv\"\n  \n  ##tomato <-read.table(file=theUrl, header=TRUE, sep =\",\")\n  \n  \n  \n  \n  df_deaths <- data.frame(tomato)\n  \n  coordinates(df_deaths)=~lng1+lat1\n  proj4string(df_deaths)=CRS(\"+init=EPSG:3395\") \n  df_deaths = spTransform(df_deaths,CRS(\"+datum=WGS84\"))\n  df <- data.frame(tomato)\n  na.omit(df)\n  lng=df$lng1\n  lat=df$lat1\n  clr=\"blue\"\n  \n  library(KernSmooth)\n  X=cbind(lng,lat)\n  kde2d <- bkde2D(X, gridsize=c(1000,1000), bandwidth=c(bw.ucv(X[,1]),bw.ucv(X[,2])))\n  \n  \n  kde2d[0]\n  \n  ##kde2d <-stat_density2d(data=df,aes(x=longitude,y=latitude), alpha =0.5, geom=\"polygon\")\n  ## Warning in bw.ucv(X[, 1]): minimum occurred at one end of the range\n  x=kde2d$x1\n  y=kde2d$x2\n  z=kde2d$fhat\n  CL=contourLines(x,y,z)\n  return(CL)\n\n}",
+    "created" : 1451423046763.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2196772425",
+    "id" : "4014DFF1",
+    "lastKnownWriteTime" : 1451594642,
+    "path" : "C:/Users/alex/Desktop/bus_vis/myapp/R/myApp.R",
+    "project_path" : "R/myApp.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

@@ -1,4 +1,4 @@
-function(tomato){
+function(url){
   #require(leafletR)
   #devtools::install_github("rstudio/leaflet")
   require(leaflet)
@@ -38,9 +38,9 @@ function(tomato){
   
   ##theUrl <- "http://abuchel.physics.uwo.ca/~obuchel/angular/john_snow_map/deaths.csv"
   
-  ##theUrl <- "http://abuchel.physics.uwo.ca/~obuchel/ivey_research/2008_2014_new_1.csv"
+  theUrl <- url
   
-  ##tomato <-read.table(file=theUrl, header=TRUE, sep =",")
+  tomato <-read.table(file=theUrl, header=TRUE, sep =",")
   
   
   
